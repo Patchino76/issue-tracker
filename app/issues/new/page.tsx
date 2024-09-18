@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { z } from "zod";
+import ErrorMessage from "@/app/api/components/ErrorMessage";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -20,11 +21,7 @@ const NewIssuesPage = () => {
   const [errorMsg, setErrorMsg] = useState("");
   return (
     <div className="max-w-xl">
-      {errorMsg && (
-        <Callout.Root className="mb-5">
-          <Callout.Text color="red">{errorMsg}</Callout.Text>
-        </Callout.Root>
-      )}
+
       <form
         className="space-y-3"
         onSubmit={handleSubmit(async (data) => {
@@ -38,14 +35,14 @@ const NewIssuesPage = () => {
           }
         })}
       >
-        <TextField.Root
+        <TextField.Root 
           placeholder="Title"
           {...register("title", { required: "Title is required !!!" })} >
         </TextField.Root>
-        {errors.title && <Text color="red">{errors.title.message}</Text>}
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>:
  
         <TextArea placeholder="Description" {...register("description", { required: "Description is required" })} />
-        {errors.description && <Text color="red">{errors.description.message}</Text>}
+         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button type="submit">Submit New Issue</Button>
       </form>
     </div>
