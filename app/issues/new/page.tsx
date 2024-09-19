@@ -1,5 +1,12 @@
 "use client";
-import { Button, Callout, TextArea, TextField, Text, Spinner } from "@radix-ui/themes";
+import {
+  Button,
+  Callout,
+  TextArea,
+  TextField,
+  Text,
+  Spinner,
+} from "@radix-ui/themes";
 import React, { useState } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
@@ -14,39 +21,47 @@ import ErrorMessage from "@/app/api/components/ErrorMessage";
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuesPage = () => {
-  const { register, control, handleSubmit, formState:{ errors} } = useForm<IssueForm>({
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IssueForm>({
     resolver: zodResolver(createIssueSchema),
-  }); 
-  const [isSubmitting, setSubmitting] = useState(false)
+  });
+  const [isSubmitting, setSubmitting] = useState(false);
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState("");
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setSubmitting(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      console.log(error);
+      setErrorMsg("Something went wrong !!!");
+      setSubmitting(false);
+    }
+  });
+
   return (
     <div className="max-w-xl">
-
-      <form
-        className="space-y-3"
-        onSubmit={handleSubmit(async (data) => {
-  
-          try {
-            setSubmitting(true);
-            await axios.post("/api/issues", data);
-            router.push("/issues"); 
-          } catch (error) {
-            console.log(error)
-            setErrorMsg("Something went wrong !!!");
-            setSubmitting(false)
-          }
-        })}
-      >
-        <TextField.Root 
+      <form className="space-y-3" onSubmit={onSubmit}>
+        <TextField.Root
           placeholder="Title"
-          {...register("title", { required: "Title is required !!!" })} >
-        </TextField.Root>
+          {...register("title", { required: "Title is required !!!" })}
+        ></TextField.Root>
         <ErrorMessage>{errors.title?.message}</ErrorMessage>:
- 
-        <TextArea placeholder="Description" {...register("description", { required: "Description is required" })} />
-         <ErrorMessage>{errors.description?.message}</ErrorMessage>
-        <Button type="submit" disabled={isSubmitting}>Submit New Issue {isSubmitting && <Spinner/>}</Button>:
+        <TextArea
+          placeholder="Description"
+          {...register("description", { required: "Description is required" })}
+        />
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
+        <Button type="submit" disabled={isSubmitting}>
+          Submit New Issue {isSubmitting && <Spinner />}
+        </Button>
+        :
       </form>
     </div>
   );
