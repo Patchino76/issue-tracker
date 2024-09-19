@@ -52,7 +52,7 @@ const NewIssuesPage = () => {
           placeholder="Title"
           {...register("title", { required: "Title is required !!!" })}
         ></TextField.Root>
-        <ErrorMessage>{errors.title?.message}</ErrorMessage>:
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <TextArea
           placeholder="Description"
           {...register("description", { required: "Description is required" })}
