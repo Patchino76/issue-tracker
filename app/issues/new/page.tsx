@@ -6,6 +6,7 @@ import {
   TextField,
   Text,
   Spinner,
+  Box,
 } from "@radix-ui/themes";
 import React, { useState } from "react";
 import SimpleMDE from "react-simplemde-editor";
@@ -17,10 +18,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { z } from "zod";
 import ErrorMessage from "@/app/api/components/ErrorMessage";
+import delay from "delay";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
-const NewIssuesPage = () => {
+const NewIssuesPage = async() => {
+  
   const {
     register,
     control,
@@ -44,9 +47,9 @@ const NewIssuesPage = () => {
       setSubmitting(false);
     }
   });
-
+  await delay(1000)
   return (
-    <div className="max-w-xl">
+    <Box className="max-w-xl">
       <form className="space-y-3" onSubmit={onSubmit}>
         <TextField.Root
           placeholder="Title"
@@ -61,9 +64,8 @@ const NewIssuesPage = () => {
         <Button type="submit" disabled={isSubmitting}>
           Submit New Issue {isSubmitting && <Spinner />}
         </Button>
-        :
       </form>
-    </div>
+    </Box>
   );
 };
 

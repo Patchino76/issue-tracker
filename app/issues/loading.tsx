@@ -1,5 +1,4 @@
-import { Link, Table } from "@radix-ui/themes";
-import React from "react";
+import { Box, Table } from "@radix-ui/themes";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import IssueActions from "./IssueActions";
@@ -7,7 +6,7 @@ import IssueActions from "./IssueActions";
 const LoadingIssuesPage = () => {
   const issues = [1, 2, 3, 4, 5];
   return (
-    <div className="container w-1/2 space-y-4">
+    <Box className="max-w-xl space-y-3">
       <IssueActions />
       <Table.Root variant="surface" >
         <Table.Header className="bg-gray-400 text-white">
@@ -40,7 +39,7 @@ const LoadingIssuesPage = () => {
           ))}
         </Table.Body>
       </Table.Root>
-    </div>
+    </Box>
   );
 };
 
