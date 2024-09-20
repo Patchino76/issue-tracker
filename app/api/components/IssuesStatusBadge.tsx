@@ -13,7 +13,7 @@ const IssuesStatusBadge = ({status} : {status : Status}) => {
   return (
     <div>
       <Flex gap="2">
-        <Badge color={statusMap[status].color} >{statusMap[status].label}</Badge>:
+        <Badge color={statusMap[status].color} >{statusMap[status].label}</Badge>
       </Flex>
     </div>
   );
