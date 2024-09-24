@@ -33,6 +33,7 @@ const IssueForm = async ({ issue }: { issue?: Issue }) => {
       else await axios.post("/api/issues", data);
 
       router.push("/issues");
+      router.refresh();
     } catch (error) {
       console.log(error);
       setErrorMsg("Something went wrong !!!");
@@ -56,7 +57,8 @@ const IssueForm = async ({ issue }: { issue?: Issue }) => {
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button type="submit" disabled={isSubmitting}>
-         {issue ? "Update Issue" :  "Submit New Issue"} {isSubmitting && <Spinner />}
+          {issue ? "Update Issue" : "Submit New Issue"}{" "}
+          {isSubmitting && <Spinner />}
         </Button>
       </form>
     </Box>
