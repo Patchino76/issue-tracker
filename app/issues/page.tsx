@@ -1,12 +1,18 @@
 import prisma from "@/prisma/client";
 import { Box, Link, Table } from "@radix-ui/themes";
 import React from "react";
-import IssuesStatusBadge from "../api/components/IssuesStatusBadge";
+import IssuesStatusBadge from "../components/IssuesStatusBadge";
 import delay from "delay";
 import IssueActions from "./IssueActions";
-import CustomLink from "../api/components/CustomLink";
+import CustomLink from "../components/CustomLink";
 const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany();
+  const issues = await prisma.issue.findMany(
+    {
+      orderBy: {
+        id: "asc",
+      },
+    } 
+  );
   await delay(1000);
   return (
     <Box className="max-w-xl space-y-3">
@@ -27,7 +33,9 @@ const IssuesPage = async () => {
           {issues.map((issue) => (
             <Table.Row key={issue.id}>
               <Table.Cell>
-                <CustomLink  href={`/issues/${issue.id}`}>{issue.title}</CustomLink>
+                <CustomLink href={`/issues/${issue.id}`}>
+                  {issue.title}
+                </CustomLink>
                 <div className="block md:hidden">
                   <IssuesStatusBadge status={issue.status} />
                 </div>

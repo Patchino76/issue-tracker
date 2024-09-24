@@ -1,6 +1,6 @@
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
-import IssueForm from "../../_components/IssueForm";
+import IssueForm from "@/app/issues/_components/IssueForm";
 
 interface Props {
   params: { id: string };
@@ -16,7 +16,6 @@ const EditIssuePage =  async({ params :{id}}: Props) => {
 
   return (
   <>
-  <h1>test !!!!!!!!!!!!!! {id}</h1>
   <IssueForm issue = {issue} />
   </>
   )

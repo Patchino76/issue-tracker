@@ -1,9 +1,9 @@
-import IssuesStatusBadge from "@/app/api/components/IssuesStatusBadge";
+import IssuesStatusBadge from "@/app/components/IssuesStatusBadge";
 import { Issue } from "@prisma/client";
 import { Heading, Flex, Card, Text } from "@radix-ui/themes";
 import React from "react";
 
-const IssueDetails = ({issue} : {issue : Issue}) => {
+const IssueDetails = ({ issue }: { issue: Issue }) => {
   return (
     <>
       <Heading>{issue?.title ?? "Issue not found"}</Heading>
