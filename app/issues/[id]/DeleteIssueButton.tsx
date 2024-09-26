@@ -4,23 +4,28 @@ import { TrashIcon } from "@radix-ui/react-icons";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useState } from "react";
 
 
-const handleDeletion = async (issueId: number, router: AppRouterInstance) => {
-  
-  try{
-    await axios.delete(`/api/issues/${issueId}`);
-    router.push("/issues");
-    router.refresh()
-  }
-  catch(error){
-    console.log(error); 
-  }
-}
+
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   const router = useRouter();
+  const [error, setError] = useState(false);
+
+  const onDeleteIssue = async (issueId: number) => {
+    try{
+      // throw new Error();
+      await axios.delete(`/api/issues/${issueId}`);
+      router.push("/issues");
+      router.refresh()
+    }
+    catch(error){
+      setError(true); 
+    }
+  }
   return (
+    <>
     <AlertDialog.Root> 
       <AlertDialog.Trigger>
       <Button className="w-full" color="red">
@@ -36,15 +41,22 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
             <Button color="gray" variant="soft">Cancel</Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button color="red" variant="soft" onClick={() => handleDeletion(issueId, router)}>
+            <Button color="red" variant="soft" onClick={() => onDeleteIssue(issueId)}>
               Delete
             </Button>
           </AlertDialog.Action>
         </Flex>
       </AlertDialog.Content>
-       
     </AlertDialog.Root>
 
+    <AlertDialog.Root open={error}>
+      <AlertDialog.Content>
+        <AlertDialog.Title>Error</AlertDialog.Title>
+        <AlertDialog.Description>This issue cannot be deleted.</AlertDialog.Description>
+        <Button color="gray" variant="soft" mt="2" onClick={() => setError(false)}>OK</Button>
+      </AlertDialog.Content>
+    </AlertDialog.Root>
+    </>
   );
 };
 
