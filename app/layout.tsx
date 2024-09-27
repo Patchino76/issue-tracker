@@ -24,7 +24,9 @@ export default function RootLayout({
       <body className={inter.variable}>
         <AuthProvider>
           <Theme accentColor="purple" appearance="light">
+            <Container>
             <NavBar></NavBar>
+            </Container>
             <main className="p-5">
               <Container maxWidth="xl">{children}</Container>
             </main>
