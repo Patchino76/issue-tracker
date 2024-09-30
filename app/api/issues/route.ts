@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
     },
   });
 
+
   if (!newIssue) {
     return NextResponse.json("Something went wrong", { status: 500 });
   }
