@@ -3,16 +3,14 @@ import { Box, Link, Table } from "@radix-ui/themes";
 import React from "react";
 import IssuesStatusBadge from "../components/IssuesStatusBadge";
 import delay from "delay";
-import IssueActions from "./IssueActions";
+import IssueActions from "./list/IssueActions";
 import CustomLink from "../components/CustomLink";
 const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany(
-    {
-      orderBy: {
-        id: "asc",
-      },
-    } 
-  );
+  const issues = await prisma.issue.findMany({
+    orderBy: {
+      id: "asc",
+    },
+  });
   await delay(1000);
   return (
     <Box className="max-w-xl space-y-3">

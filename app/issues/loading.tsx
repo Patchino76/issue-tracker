@@ -1,13 +1,13 @@
 import { Box, Table } from "@radix-ui/themes";
 import Skeleton from "@/app/components/Skeleton";
-import IssueActions from "./IssueActions";
+import IssueActions from "./list/IssueActions";
 
 const LoadingIssuesPage = () => {
   const issues = [1, 2, 3, 4, 5];
   return (
     <Box className="max-w-xl space-y-3">
       <IssueActions />
-      <Table.Root variant="surface" >
+      <Table.Root variant="surface">
         <Table.Header className="bg-gray-400 text-white">
           <Table.Row>
             <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>

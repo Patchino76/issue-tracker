@@ -5,6 +5,7 @@ import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import React from "react";
 
 const AssigneeSelect = async ({ issue }: { issue: Issue }) => {
   const { data: users, error, isLoading } = useUsers();
