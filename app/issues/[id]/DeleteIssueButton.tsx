@@ -1,10 +1,9 @@
 'use client';
-import { AlertDialog, Button, Flex, Spinner } from "@radix-ui/themes";
 import { TrashIcon } from "@radix-ui/react-icons";
+import { AlertDialog, Button, Flex, Spinner } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { useState } from "react";
+import React, { useState } from "react";
 
 
 
@@ -19,7 +18,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
       // throw new Error();
       setIsDeleting(true);
       await axios.delete(`/api/issues/${issueId}`);
-      router.push("/issues");
+      router.push("/issues/list");
       router.refresh()
     }
     catch(error){
