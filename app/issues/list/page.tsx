@@ -7,6 +7,7 @@ import IssuesStatusBadge from "../../components/IssuesStatusBadge";
 import IssueActions from "./IssueActions";
 import NextLink from "next/link";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
+import Pagination from "@/app/components/Pagination";
 
 const IssuesPage = async ({
   searchParams,
@@ -71,6 +72,7 @@ const IssuesPage = async ({
           ))}
         </Table.Body>
       </Table.Root>
+      <Pagination itemCount={100} pageSize={10} currentPage={2} />
     </Box>
   );
 };
