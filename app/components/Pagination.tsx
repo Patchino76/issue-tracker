@@ -28,11 +28,12 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
     params.set("page", page.toString());
     const query = params.size ? "?" + params.toString() : "";
     router.push(query);
+
   };
 
   return (
     <Flex align="center" gap="2">
-      <Text size="2">
+      <Text size="2"> 
         Page {currentPage} of {pageCount}
       </Text>
       <Button
